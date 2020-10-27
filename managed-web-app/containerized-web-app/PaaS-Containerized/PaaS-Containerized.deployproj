@@ -27,8 +27,6 @@
     <None Include="Scripts\Deploy-AzureResourceGroup.ps1" />
     <None Include="Templates\PaaS-Containerized.parameters.json" />
     <None Include="Templates\PaaS-Containerized.json" />
-    <None Include="Templates\_PaaS-Containerized-REF.json" />
-    <None Include="Templates\_PaaS-Containerized-REF.parameters.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
