@@ -298,5 +298,15 @@
         }
       }
     }
-  ]
+  ],
+  "outputs": {
+    "containerRegistryName": {
+      "value": "[variables('containerRegistryName')]",
+      "type": "string"
+    },
+    "webSiteName": {
+      "value": "[variables('webSiteName')]",
+      "type": "string"
+    }
+  }
 }
