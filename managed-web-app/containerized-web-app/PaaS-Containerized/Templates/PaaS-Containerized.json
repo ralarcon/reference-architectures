@@ -307,6 +307,10 @@
     "webSiteName": {
       "value": "[variables('webSiteName')]",
       "type": "string"
+    },
+    "sqlServerName": {
+      "value": "[variables('sqlServerName')]",
+      "type": "string"
     }
   }
 }
