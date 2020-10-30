@@ -258,22 +258,22 @@
       "properties": {
         "name": "[variables('webSiteName')]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-        "siteConfig": {
-          //"linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
-          "appSettings": [
-            {
-              "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
-              "value": "false"
-            }
-          ],
-          "connectionStrings": [
-            {
-              "name": "MyDbConnection",
-              "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
-              "type": "SQLAzure"
-            }
-          ]
-        }
+        //"siteConfig": {
+        //  //"linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
+        //  "appSettings": [
+        //    {
+        //      "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+        //      "value": "false"
+        //    }
+        //  ],
+        //  "connectionStrings": [
+        //    {
+        //      "name": "MyDbConnection",
+        //      "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
+        //      "type": "SQLAzure"
+        //    }
+        //  ]
+        //}
       },
       "resources": [
         {
