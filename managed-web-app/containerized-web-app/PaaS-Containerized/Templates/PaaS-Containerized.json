@@ -258,8 +258,8 @@
       "properties": {
         "name": "[variables('webSiteName')]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
-          //,
-        //"siteConfig": {
+        // Settings not especified thru the template as is expected to be used with automated deployments which sets the proper configuration. Follow is a sample of site configs if needed
+        //,"siteConfig": {
         //  //"linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
         //  "appSettings": [
         //    {
