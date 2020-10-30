@@ -77,7 +77,7 @@
     },
     "skuName": {
       "type": "string",
-      "defaultValue": "B1",
+      "defaultValue": "S1",
       "allowedValues": [
         "F1",
         "B1",
@@ -240,41 +240,59 @@
       "reserved": true
     }
   },
-  {
-    "type": "Microsoft.Web/sites",
-    "apiVersion": "2020-06-01",
-    "name": "[variables('webSiteName')]",
-    "location": "[resourceGroup().location]",
-    "dependsOn": [
-      "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-      "[resourceId('Microsoft.ContainerRegistry/registries', variables('containerRegistryName'))]",
-      "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-    ],
-    "tags": {
-      "app": "[parameters('webSiteName')]",
-      "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName')))]": "empty"
-    },
-    "kind": "app,linux,container",
-    "properties": {
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2020-06-01",
       "name": "[variables('webSiteName')]",
-      "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-      "siteConfig": {
-        "linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
-        "appSettings": [
-          {
-            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
-            "value": "false"
-          }
-        ],
-        "connectionStrings": [
-          {
-            "name": "MyDbConnection",
-            "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
-            "type": "SQLAzure"
-          }
-        ]
-      }
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "[resourceId('Microsoft.ContainerRegistry/registries', variables('containerRegistryName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+      ],
+      "tags": {
+        "app": "[parameters('webSiteName')]",
+        "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName')))]": "empty"
+      },
+      "kind": "app,linux,container",
+      "properties": {
+        "name": "[variables('webSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "siteConfig": {
+          "linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
+          "appSettings": [
+            {
+              "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+              "value": "false"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "MyDbConnection",
+              "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
+              "type": "SQLAzure"
+            }
+          ]
+        }
+      },
+      "resources": [
+        {
+          "condition": "[or(startsWith(parameters('skuName'),'S'),startsWith(parameters('skuName'),'P'))]",
+          "apiVersion": "2015-08-01",
+          "name": "staging",
+          "type": "slots",
+          "tags": {
+            "app": "[parameters('webSiteName')]"
+          },
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('webSiteName'))]"
+          ],
+          "properties": {
+          },
+          "resources": []
+        }
+      ]
     }
-  }
 ]
 }
