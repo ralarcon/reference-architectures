@@ -109,7 +109,6 @@
   "variables": {
     "sqlServerName": "[parameters('sqlServerName')]",
     "webSiteName": "[parameters('webSiteName')]",
-    "existingWebSiteContainerImage": "[reference(resourceId('Microsoft.Web/sites/', variables('webSiteName'))).siteConfig.linuxFxVersion]",
     "appServicePlanName": "[concat('plan-', parameters('webSiteName'))]",
     "containerRegistryName": "[parameters('containerRegistryName')]",
     "storageAccountName": "[tolower(replace(replace(concat('st', parameters('webSiteName')), '-',''), '_',''))]",
@@ -260,7 +259,7 @@
         "name": "[variables('webSiteName')]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
         "siteConfig": {
-          "linuxFxVersion": "[coalesce(variables('existingWebSiteContainerImage'),'DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp')]",
+          "linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
           "appSettings": [
             {
               "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
