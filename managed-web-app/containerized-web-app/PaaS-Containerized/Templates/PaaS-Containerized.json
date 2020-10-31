@@ -258,23 +258,21 @@
       "properties": {
         "name": "[variables('webSiteName')]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-         //Settings not especified thru the template as is expected to be used with automated deployments which sets the proper configuration. Follow is a sample of site configs if needed
         "siteConfig": {
-          //"linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
-          "linuxFxVersion": "",
+          "linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
           "appSettings": [
             {
               "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
               "value": "false"
             }
-          ] //,
-          //"connectionStrings": [
-          //  {
-          //    "name": "MyDbConnection",
-          //    "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
-          //    "type": "SQLAzure"
-          //  }
-          //]
+          ],
+          "connectionStrings": [
+            {
+              "name": "MyDbConnection",
+              "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('dbName'), ';User Id=', parameters('dbAdminLogin'), '@', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';Password=', parameters('dbAdminLoginPassword'), ';')]",
+              "type": "SQLAzure"
+            }
+          ]
         }
       },
       "resources": [
