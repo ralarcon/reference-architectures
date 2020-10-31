@@ -259,7 +259,7 @@
         "name": "[variables('webSiteName')]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
         "siteConfig": {
-          "linuxFxVersion": "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp",
+          "linuxFxVersion": "[coalesce(reference(resourceId('Microsoft.Web/sites/', variables('webSiteName'))).siteConfig.linuxFxVersion,'DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp')]",
           "appSettings": [
             {
               "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
